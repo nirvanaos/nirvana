@@ -1,0 +1,106 @@
+{
+	"version": 7,
+	"cmakeMinimumRequired": {
+		"major": 3,
+		"minor": 7
+	},
+	"configurePresets": [
+		{
+			"hidden": true,
+			"name": "base",
+			"toolchainFile" : "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+			"generator" : "Ninja Multi-Config",
+			"cacheVariables": {
+				"VCPKG_OVERLAY_TRIPLETS": "$env{NIRVANA_SDK}/triplets",
+				"VCPKG_CHAINLOAD_TOOLCHAIN_FILE": "$env{NIRVANA_SDK}/cmake/nirvana.cmake"
+			}
+		},
+		{
+			"hidden": true,
+			"inherits": "base",
+			"name": "windows",
+			"cacheVariables": {
+				"NIRVANA_HOST_TYPE": "Windows"
+			}
+		},
+		{
+			"inherits": "windows",
+			"name": "windows-x64",
+			"displayName": "Windows x64",
+			"binaryDir": "build/windows-x64",
+			"cacheVariables": {
+        "NIRVANA_TARGET_PLATFORM": "x64",
+				"VCPKG_TARGET_TRIPLET": "x64-nirvana",
+				"NIRVANA_HOST_PLATFORM": "PLATFORM_X64",
+				"CMAKE_RUNTIME_OUTPUT_DIRECTORY": "${sourceDir}/build/windows-x64/$<CONFIG>"
+			}
+		},
+		{
+			"hidden": true,
+			"inherits": "windows",
+			"name": "windows-x86-base",
+			"cacheVariables": {
+        "NIRVANA_TARGET_PLATFORM": "x86",
+				"VCPKG_TARGET_TRIPLET": "x86-nirvana"
+			}
+		},
+		{
+			"inherits": "windows-x86-base",
+			"name": "windows-x64-platform-x86",
+			"displayName": "Windows x64 Platform x86",
+			"binaryDir": "build/windows-x64/x86",
+			"cacheVariables": {
+				"NIRVANA_HOST_PLATFORM": "PLATFORM_X64",
+				"CMAKE_RUNTIME_OUTPUT_DIRECTORY": "${sourceDir}/build/windows-x64/$<CONFIG>/x86"
+			}
+		},
+		{
+			"inherits": "windows-x86-base",
+			"name": "windows-x86",
+			"displayName": "Windows x86",
+			"binaryDir": "build/windows-x86",
+			"cacheVariables": {
+				"NIRVANA_HOST_PLATFORM": "PLATFORM_X86",
+				"CMAKE_RUNTIME_OUTPUT_DIRECTORY": "${sourceDir}/build/windows-x86/$<CONFIG>"
+			}
+		}
+	],
+	"buildPresets": [
+		{
+			"name": "windows-x64-debug",
+			"displayName": "Debug",
+			"configurePreset": "windows-x64",
+			"configuration": "Debug"
+		},
+		{
+			"name": "windows-x64-release",
+			"displayName": "Release",
+			"configurePreset": "windows-x64",
+			"configuration": "Release"
+		},
+		{
+			"name": "windows-x64-platform-x86-debug",
+			"displayName": "Debug",
+			"configurePreset": "windows-x64-platform-x86",
+			"configuration": "Debug"
+		},
+		{
+			"name": "windows-x64-platform-x86-release",
+			"displayName": "Release",
+			"configurePreset": "windows-x64-platform-x86",
+			"configuration": "Release"
+		},
+		{
+			"name": "windows-x86-debug",
+			"displayName": "Debug",
+			"configurePreset": "windows-x86",
+			"configuration": "Debug"
+		},
+		{
+			"name": "windows-x86-release",
+			"displayName": "Release",
+			"configurePreset": "windows-x86",
+			"configuration": "Release"
+		}
+	]
+}

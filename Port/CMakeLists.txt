@@ -1,0 +1,5 @@
+add_library (Port STATIC)
+add_subdirectory (${NIRVANA_HOST_TYPE})
+target_include_directories (Core PUBLIC ${NIRVANA_HOST_TYPE})
+target_link_libraries (Port PUBLIC Core)
+target_include_directories (Port PRIVATE ${NIRVANA_CORE_SDK_DIR}/Include)
