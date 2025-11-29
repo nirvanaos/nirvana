@@ -1,3 +1,6 @@
 {
-	"dependencies": [ "boost-preprocessor" ]
+  "dependencies": [
+    "boost-preprocessor",
+    "decnumber"
+  ]
 }
